@@ -1,31 +1,63 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Book store example with angular js.";
+}
+@section scripts{
+    @*Here I gave path for app.js file to access the code.*@
+    <script src="~/Scripts/app/app.js"></script>
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<html ng-app="bookStoreAppModuleyApp">
+<head>
+    <title>Books</title>
+    @*NOTE: Here we need to follow the flow i.e first we need to mention the angular.min.js file after that we need to mention our own .js files.*@
+    @*<script src="~/scripts/jquery-1.8.2.min.js"></script>
+        <script src="~/scripts/angular.min.js"></script>
+        <script src="~/scripts/app/app.js"></script>
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+</head>
+<body>
+    <div>
+        <div><p><h2>In simple terms two-way data binding is when the model changes, the view reflects the change, and vice versa. Two-way bindings in AngularJS are created with the ng-model directive. Practically, two-way bindings can be applied only to those elements that allow the user to provide a data value, which means the input, textarea, and select elements. </h2></p></div>
+        <div ng-controller="bookStoreController">
+            <br />
+            <div style="padding-top:15px;">
+                <table border="1" class="mytable">
+                    <tr>
+                        <td>ISBN</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total Price</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr ng-repeat="item in items">
+                        <td>{{item.ISBN}}</td>
+                        <td>
+                            <span ng-hide="editMode">{{item.Name}}</span>
+                            <input type="text" ng-show="editMode" ng-model="item.Name" />
+                        </td>
+                        <td>
+                            <span ng-hide="editMode">{{item.Price}}</span>
+                            <input type="number" ng-show="editMode" ng-model="item.Price" />
+                        </td>
+                        <td>
+                            <span ng-hide="editMode">{{item.Quantity}}</span>
+                            <input type="number" ng-show="editMode" ng-model="item.Quantity" />
+                        </td>
+                        <td>{{(item.Quantity) * (item.Price)}}</td>
+                        <td>
+                            <span> <button type="submit" ng-hide="editMode" ng-click="editMode = true; editItem(item)">Edit</button></span>
+                            <span> <button type="submit" ng-show="editMode" ng-click="editMode = false; saveField(item)">Save</button></span>
+                            <span><input type="button" value="Delete" ng-click="removeItem($index)" /></span>
+                        </td>
+                    </tr>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                </table>
+            </div>
+            <br />
+            <div style="font-weight:bold">Grand Total: {{totalPrice()}}</div>
+            <br />
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>
+</html>

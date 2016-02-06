@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*After adding bundle in BundleConfig file, next we need to add the AngualrJS bundle in the _Layout.cshtml as listed below.*@
+    @Scripts.Render("~/bundles/angularJs")
 
 </head>
 <body>
